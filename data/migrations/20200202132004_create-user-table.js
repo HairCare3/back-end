@@ -12,6 +12,8 @@ exports.up = function(knex) {
                 .index()
             tbl.string('password')
                 .notNullable()
+            tbl.string('name')
+                .notNullable()
             tbl.string('location')
                 .notNullable()
                 .index()
