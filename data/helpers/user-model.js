@@ -5,6 +5,7 @@ module.exports = {
     find,
     findBy,
     findById,
+    remove,
     findStylists
 }
 
@@ -31,6 +32,13 @@ function findById(id) {
         .where('id', id)
         .first()
         .select('id', 'name', 'email', 'location', 'is_stylist', 'profile_url', 'profile_info')
+}
+
+// delete user by id
+function remove(id) {
+    return db('user')
+        .where('id', id)
+        .del()
 }
 
 // return only stylists
