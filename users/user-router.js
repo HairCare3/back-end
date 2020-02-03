@@ -29,6 +29,31 @@ router.get('/:id', (req, res) => {
         })
 })
 
+router.put('/:id', (req, res) => {
+    const { id } = req.params
+    const body = req.body
+
+    if (Number(id) === Number(req.user.id)) {
+        Users.update(id, body)
+            .then(() => {
+                Users.findById(id)
+                    .then(user => {
+                        res.status(201).json(user)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        res.status(500).json({ message: 'Error returning user info.' })
+                    })
+            })
+            .catch(err => {
+                console.log(err)
+                res.status(500).json({ message: 'Error updating user.' })
+            })
+    } else {
+        res.status(401).json({ message: 'You do not have authorization to do this.' })
+    }
+})
+
 router.delete('/:id', (req, res) => {
     const { id } = req.params
 
