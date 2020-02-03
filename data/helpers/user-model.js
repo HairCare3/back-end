@@ -17,7 +17,7 @@ function add(userData) {
 // return all users
 function find() {
     return db('user')
-        .select('id', 'name', 'email', 'location', 'is_stylist', 'profile_url')
+        .select('id', 'name', 'email', 'location', 'is_stylist', 'profile_url', 'profile_info')
 }
 
 // find user(s) based on argument
@@ -30,12 +30,12 @@ function findById(id) {
     return db('user')
         .where('id', id)
         .first()
-        .select('id', 'name', 'email', 'location', 'is_stylist', 'profile_url')
+        .select('id', 'name', 'email', 'location', 'is_stylist', 'profile_url', 'profile_info')
 }
 
 // return only stylists
 function findStylists() {
     return db('user')
         .where('is_stylist', true)
-        .select('id', 'name', 'email', 'location', 'is_stylist', 'profile_url')
+        .select('id', 'name', 'email', 'location', 'is_stylist', 'profile_url', 'profile_info')
 }
