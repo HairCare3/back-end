@@ -30,7 +30,7 @@ router.get('/:id', validateId('user'), (req, res) => {
         })
 })
 
-router.put('/:id', validateId(Users), (req, res) => {
+router.put('/:id', validateId('user'), (req, res) => {
     const { id } = req.params
     const body = req.body
 
@@ -55,7 +55,7 @@ router.put('/:id', validateId(Users), (req, res) => {
     }
 })
 
-router.delete('/:id', validateId(Users), (req, res) => {
+router.delete('/:id', validateId('user'), (req, res) => {
     const { id } = req.params
 
     if (Number(id) === Number(req.user.id)) {

@@ -4,14 +4,16 @@
 
 ## Endpoints
 
-|Request|URL|Description|
-|------------|---|-----------|
-|POST|/auth/register|Add user to database. Requires at least `username`, `email`, `password`, `location`.|
-|POST|/auth/login| Login. Requires `username` and `password`. Returns a token to be stored on the client side `authorization` header - all requests below this require a token.|
-|GET|/users|Returns an array of all users.|
-|GET|/users/:id|Returns a single user based on the given ID params. Will return an error if the ID doesn't exist.|
-|GET|/stylists|Returns an array of all stylists.|
-|GET|/stylists/:id|Returns a single stylist based on the given ID params. Will return an error if the ID doesn't exist, or if the ID belongs to a user with `is_stylist` set to `false`.|
+| Request | URL | Description |
+|---------|-----|-------------|
+| POST | /auth/register |Add user to database. Requires at least `username`, `email`, `password`, `location`. |
+| POST | /auth/login | Login. Requires `username` and `password`. Returns a token to be stored on the client side `authorization` header - all requests below this require a token. |
+| GET | /users | Returns an array of all users. |
+| GET | /users/:id | Returns a single user based on the given ID params. Will return an error if the ID doesn't exist. |
+| PUT | /users/:id | Edit user. Returns the updated user object. Will return an error if user tries to edit another user. |
+| DELETE | /users/:id | Delete user. Will return an error if the user tries to delete another user. |
+| GET | /stylists | Returns an array of all stylists. |
+| GET | /stylists/:id | Returns a single stylist based on the given ID params. Will return an error if the ID doesn't exist, or if the ID belongs to a user with `is_stylist` set to `false`. |
 
 ## Example Data
 
@@ -19,6 +21,7 @@
 ```
 {
     id: 1,
+    username: "bianca",
     name: "Bianca Severino",
     email: "biancasev@gmail.com",
     password: "password", // will not return in requests
