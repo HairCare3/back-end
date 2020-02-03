@@ -5,6 +5,8 @@ module.exports = {
     find,
     findBy,
     findById,
+    update,
+    updatePassword,
     remove,
     findStylists
 }
@@ -18,7 +20,7 @@ function add(userData) {
 // return all users
 function find() {
     return db('user')
-        .select('id', 'name', 'email', 'location', 'is_stylist', 'profile_url', 'profile_info')
+        .select('id', 'username', 'name', 'email', 'location', 'is_stylist', 'profile_url', 'profile_info')
 }
 
 // find user(s) based on argument
@@ -27,11 +29,34 @@ function findBy(filter) {
         .where(filter)
 }
 
+// find user by id
 function findById(id) {
     return db('user')
         .where('id', id)
         .first()
-        .select('id', 'name', 'email', 'location', 'is_stylist', 'profile_url', 'profile_info')
+        .select('id', 'username', 'name', 'email', 'location', 'is_stylist', 'profile_url', 'profile_info')
+}
+
+// edit user by id
+function update(id, data) {
+    return db('user')
+        .where('id', id)
+        .update({
+            'username': data.username,
+            'email': data.email,
+            'location': data.location,
+            'name': data.name,
+            'is_stylist': data.is_stylist,
+            'profile_url': data.profile_url,
+            'profile_info': data.profile_info
+        })
+}
+
+// edit password by id
+function updatePassword(id, password) {
+    return db('user')
+        .where('id', id)
+        .update('password', password)
 }
 
 // delete user by id
@@ -45,5 +70,5 @@ function remove(id) {
 function findStylists() {
     return db('user')
         .where('is_stylist', true)
-        .select('id', 'name', 'email', 'location', 'is_stylist', 'profile_url', 'profile_info')
+        .select('id', 'username', 'name', 'email', 'location', 'is_stylist', 'profile_url', 'profile_info')
 }
