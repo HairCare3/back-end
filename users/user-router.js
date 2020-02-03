@@ -3,6 +3,7 @@ const router = require('express').Router()
 const Users = require('../data/helpers/user-model.js')
 
 const verifyToken = require('../auth/verify-token.js')
+const validateId = require('../middleware/validate-id.js')
 
 router.use(verifyToken)
 
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
         })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', validateId('user'), (req, res) => {
     const { id } = req.params
     Users.findById(id)
         .then(user => {
@@ -29,7 +30,7 @@ router.get('/:id', (req, res) => {
         })
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validateId(Users), (req, res) => {
     const { id } = req.params
     const body = req.body
 
@@ -54,7 +55,7 @@ router.put('/:id', (req, res) => {
     }
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validateId(Users), (req, res) => {
     const { id } = req.params
 
     if (Number(id) === Number(req.user.id)) {

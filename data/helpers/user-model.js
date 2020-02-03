@@ -42,13 +42,13 @@ function update(id, data) {
     return db('user')
         .where('id', id)
         .update({
-            username: data.username,
-            email: data.email,
-            location: data.location,
-            name: data.name,
-            is_stylist: data.is_stylist,
-            profile_url: data.profile_url,
-            profile_info: data.profile_info
+            'username': data.username,
+            'email': data.email,
+            'location': data.location,
+            'name': data.name,
+            'is_stylist': data.is_stylist,
+            'profile_url': data.profile_url,
+            'profile_info': data.profile_info
         })
 }
 
