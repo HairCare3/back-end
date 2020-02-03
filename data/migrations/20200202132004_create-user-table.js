@@ -20,6 +20,7 @@ exports.up = function(knex) {
             tbl.boolean('is_stylist')
                 .defaultTo(false)
             tbl.string('profile_url')
+            tbl.text('profile_info')
       })  
 }
   
