@@ -3,7 +3,9 @@ const db = require('../db-config')
 module.exports = {
     add,
     find,
+    findById,
     update,
+    remove,
     findByUser
 }
 
@@ -16,6 +18,12 @@ function find() {
     return db('photo')
 }
 
+function findById(id) {
+    return db('photo')
+        .where('id', id)
+        .first()
+}
+
 function update(id, data) {
     return db('photo')
         .where('id', id)
@@ -23,6 +31,12 @@ function update(id, data) {
             description: data.description,
             img_url: data.img_url
         })
+}
+
+function remove(id) {
+    return db('photo')
+        .where('id', id)
+        .del()
 }
 
 function findByUser(id) {
