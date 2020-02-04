@@ -18,7 +18,7 @@
     email: "email@email.com",
     location: "City, State",
     is_stylist: true, // optional, will default to false if not given
-    profile_url: "http://imgurl.com/img.jpg", // optional profile iamge
+    profile_url: "http://imgurl.com/img.jpg", // optional profile image
     profile_info: "I am the user's profile description. I am optional and have no character limit."
 }
 ```
@@ -75,6 +75,14 @@
     description: "This is a photo description, I am not required."
 }
 ```
+
+### Reviews
+| Request | URL | Description |
+|---------|-----|-------------|
+| GET | /reviews | Returns an array of all reviews in the database. |
+| GET | /reviews/:id | Returns a review by ID params. Will return an error if the ID doesn't exist. |
+| PUT | /reviews/:id | Edit a review's `title` and/or `description`. Cannot currently add a photo after the fact, and cannot edit other users' reviews. |
+| DELETE | /review/:id | Delete review. Cannot delete other users' reviews. |
 
 ## Example Data
 

@@ -6,6 +6,7 @@ const Reviews = require('../data/helpers/review-model.js')
 
 const verifyToken = require('../auth/verify-token.js')
 const validateId = require('../middleware/validate-id.js')
+const validateReview = require('../reviews/validate-review.js')
 
 router.use(verifyToken)
 
@@ -61,7 +62,7 @@ router.get('/:id', validateId('user'), (req, res) => {
 })
 
 // post a review for the given stylist
-router.post('/:id', validateId('user'), (req, res) => {
+router.post('/:id', validateId('user'), validateReview, (req, res) => {
     const { id } = req.params
     const body = req.body
 

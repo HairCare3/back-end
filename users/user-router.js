@@ -4,6 +4,7 @@ const Users = require('../data/helpers/user-model.js')
 
 const verifyToken = require('../auth/verify-token.js')
 const validateId = require('../middleware/validate-id.js')
+const validateUser = require('./validate-user.js')
 
 router.use(verifyToken)
 
@@ -30,7 +31,7 @@ router.get('/:id', validateId('user'), (req, res) => {
         })
 })
 
-router.put('/:id', validateId('user'), (req, res) => {
+router.put('/:id', validateId('user'), validateUser, (req, res) => {
     const { id } = req.params
     const body = req.body
 

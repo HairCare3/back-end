@@ -2,10 +2,12 @@ const router = require('express').Router()
 const bc = require('bcryptjs')
 
 const generateToken = require('./generate-token.js')
+const validateUser = require('../users/validate-user.js')
+const validateCredentials = require('./validate-credentials.js')
 
 const Users = require('../data/helpers/user-model.js')
 
-router.post('/register', (req, res) => {
+router.post('/register', validateUser, (req, res) => {
     const user = req.body
     const hash = bc.hashSync(req.body.password, 8)
     user.password = hash
@@ -21,7 +23,7 @@ router.post('/register', (req, res) => {
         })
 })
 
-router.post('/login', (req, res) => {
+router.post('/login', validateCredentials, (req, res) => {
     const { username, password } = req.body
 
     Users.findBy({ username })
