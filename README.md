@@ -76,6 +76,14 @@
 }
 ```
 
+### Reviews
+| Request | URL | Description |
+|---------|-----|-------------|
+| GET | /reviews | Returns an array of all reviews in the database. |
+| GET | /reviews/:id | Returns a review by ID params. Will return an error if the ID doesn't exist. |
+| PUT | /reviews/:id | Edit a review's `title` and/or `description`. Cannot currently add a photo after the fact, and cannot edit other users' reviews. |
+| DELETE | /review/:id | Delete review. Cannot delete other users' reviews. |
+
 ## Example Data
 
 ### General User

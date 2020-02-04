@@ -7,6 +7,17 @@ const validateId = require('../middleware/validate-id.js')
 
 router.use(verifyToken)
 
+router.get('/', (req, res) => {
+    Review.find()
+        .then(reviews => {
+            res.status(200).json(reviews)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({ message: 'Error retrieving reviews.' })
+        })
+})
+
 router.put('/:id', validateId('review'), (req, res) => {
     const { id } = req.params
     const body = req.body
