@@ -1,6 +1,6 @@
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('review').del()
+  return knex('review')
     .then(function () {
       // Inserts seed entries
       return knex('review').insert([
