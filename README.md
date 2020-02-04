@@ -127,13 +127,13 @@
 ### Review
 ```
 {
-    id: 1 // automatically generated,
-    stylist_id: 1 // generated based on id of stylist,
-    customer_id: 2 // generated based on id of logged in user,
-    photo_id: 5 // generated based on id of photo given, will be null if no photo was uploaded,
+    id: 1, // automatically generated
+    stylist_id: 1, // generated based on id of stylist
+    customer_id: 2, // generated based on id of logged in user
+    photo_id: 5, // generated based on id of photo given, will be null if no photo was uploaded
     title: "Review Title",
     text: "This is the body text of the review. I have no character limit.",
-    stylist_rating: 4, // integer 1-5
-    haircut_rating: 5, // integer 1-5
+    stylist_rating: 4,
+    haircut_rating: 5
 }
 ```
