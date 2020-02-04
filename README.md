@@ -16,6 +16,7 @@
     username: "username",
     password: "password",
     email: "email@email.com",
+    name: "Full Name",
     location: "City, State",
     is_stylist: true, // optional, will default to false if not given
     profile_url: "http://imgurl.com/img.jpg", // optional profile image
