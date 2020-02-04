@@ -8,11 +8,11 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex('user').insert([
         {
-          username: 'bianca',
+          username: 'test',
           password: hash,
-          name: 'Bianca',
-          email: 'biancasev@gmail.com',
-          location: 'West Haven, CT',
+          name: 'Test Stylist',
+          email: 'test@gmail.com',
+          location: 'New Haven, CT',
           is_stylist: true,
           profile_url: 'https://avatars0.githubusercontent.com/u/10442143',
           profile_info: 'Hi this is my profile!'
@@ -22,7 +22,7 @@ exports.seed = function(knex) {
           password: hash,
           name: 'Isabela',
           email: 'isabela@cat.com',
-          location: 'West Haven, CT',
+          location: 'New Haven, CT',
           is_stylist: false,
           profile_url: null,
           profile_info: 'I am a cat'
@@ -32,7 +32,7 @@ exports.seed = function(knex) {
           password: hash,
           name: 'Best Stylist',
           email: 'best@stylist.com',
-          location: 'West Haven, CT',
+          location: 'New Haven, CT',
           is_stylist: true,
           profile_url: null,
           profile_info: `There's no one better than me!`
