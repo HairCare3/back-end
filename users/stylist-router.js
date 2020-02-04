@@ -23,25 +23,39 @@ router.get('/', (req, res) => {
 router.get('/:id', validateId('user'), (req, res) => {
     const { id } = req.params
 
-    Photos.findByUser(id)
-        .then(photos => {
-            Users.findById(id)
-                .then(stylist => {
-                    // check if the id belongs to a stylist
-                    if (stylist.is_stylist) {
-                        res.status(200).json({
-                            ...stylist,
-                            photos: photos
+    Users.findById(id)
+        .then(stylist => {
+            // check if the id belongs to a stylist
+            if (stylist.is_stylist) {
+                // get stylist's photos
+                Photos.findByUser(id)
+                .then(photos => {
+                    Reviews.findByStylist(id)
+                        .then(reviews => {
+                            // add stored photos and reviews to the stylist object
+                            res.status(200).json({
+                                ...stylist,
+                                photos: photos,
+                                reviews: reviews
+                            })
                         })
-                    } else {
-                        res.status(400).json({ message: 'This user is not a stylist.' })
-                    }
+                        .catch(err => {
+                            console.log(err)
+                            res.status(500).json({ message: 'Error retrieving reviews.' })
+                        })
                 })
                 .catch(err => {
                     console.log(err)
-                    res.status(500).json({ message: 'Error retrieving stylist.' })
+                    res.status(500).json({ message: 'Error retrieving photos.' })
                 })
-    })
+            } else {
+                res.status(400).json({ message: 'This user is not a stylist.' })
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({ message: 'Error retrieving stylist.' })
+        })
 })
 
 router.post('/:id', validateId('user'), (req, res) => {
@@ -77,6 +91,10 @@ router.post('/:id', validateId('user'), (req, res) => {
                 res.status(500).json({ message: 'Error retrieving stylist.' })
             })
     }
+})
+
+router.get('/:id/photos', validateId('user'), (req, res) => {
+
 })
 
 module.exports = router

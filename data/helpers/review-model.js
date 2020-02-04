@@ -46,12 +46,12 @@ function findByCustomer(id) {
     return db('review as r')
         .join('user as u', 'u.id', 'r.customer_id')
         .where('r.customer_id', id)
-        .select('r.id as review_id', 'r.customer_id', 'r.stylist_id', 'r.title', 'r.text', 'r.stylist_rating', 'r.haircut_rating')
+        .select('r.id as review_id', 'r.customer_id', 'r.stylist_id', 'r.photo_id', 'r.title', 'r.text', 'r.stylist_rating', 'r.haircut_rating')
 }
 
 function findByStylist(id) {
     return db('review as r')
         .join('user as u', 'u.id', 'r.stylist_id')
         .where('r.stylist_id', id)
-        .select('r.id as review_id', 'r.customer_id', 'r.stylist_id', 'r.title', 'r.text', 'r.stylist_rating', 'r.haircut_rating')
+        .select('r.id as review_id', 'r.customer_id', 'r.stylist_id', 'r.photo_id', 'r.title', 'r.text', 'r.stylist_rating', 'r.haircut_rating')
 }
