@@ -9,6 +9,7 @@ const validateId = require('../middleware/validate-id.js')
 
 router.use(verifyToken)
 
+// array of all stylists
 router.get('/', (req, res) => {
     Users.findStylists()
         .then(stylists => {
@@ -20,6 +21,7 @@ router.get('/', (req, res) => {
         })
 })
 
+// get a stylist, returns a user object with photo and review arrays added
 router.get('/:id', validateId('user'), (req, res) => {
     const { id } = req.params
 
@@ -28,21 +30,21 @@ router.get('/:id', validateId('user'), (req, res) => {
             // check if the id belongs to a stylist
             if (stylist.is_stylist) {
                 // get stylist's photos
-                Photos.findByUser(id)
-                .then(photos => {
-                    Reviews.findByStylist(id)
-                        .then(reviews => {
-                            // add stored photos and reviews to the stylist object
-                            res.status(200).json({
-                                ...stylist,
-                                photos: photos,
-                                reviews: reviews
+                Photos.findByStylist(id)
+                    .then(photos => {
+                        Reviews.findByStylist(id)
+                            .then(reviews => {
+                                // add stored photos and reviews to the stylist object
+                                res.status(200).json({
+                                    ...stylist,
+                                    photos: photos,
+                                    reviews: reviews
+                                })
                             })
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            res.status(500).json({ message: 'Error retrieving reviews.' })
-                        })
+                            .catch(err => {
+                                console.log(err)
+                                res.status(500).json({ message: 'Error retrieving reviews.' })
+                            })
                 })
                 .catch(err => {
                     console.log(err)
@@ -58,6 +60,7 @@ router.get('/:id', validateId('user'), (req, res) => {
         })
 })
 
+// post a review for the given stylist
 router.post('/:id', validateId('user'), (req, res) => {
     const { id } = req.params
     const body = req.body
@@ -82,7 +85,8 @@ router.post('/:id', validateId('user'), (req, res) => {
                         const photoBody = {
                             img_url: body.img_url,
                             description: body.img_description,
-                            user_id: req.user.id
+                            user_id: req.user.id,
+                            review_photo: true
                         }
 
                         // first add photo to database

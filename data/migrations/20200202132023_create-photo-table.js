@@ -13,6 +13,8 @@ exports.up = function(knex) {
             tbl.string('img_url')
                 .notNullable()
                 .unique()
+            tbl.boolean('review_photo')
+                .defaultTo(false)
       })  
 }
   
