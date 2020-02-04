@@ -4,6 +4,7 @@ module.exports = {
     add,
     find,
     findById,
+    findByUrl,
     update,
     remove,
     findByUser
@@ -21,6 +22,12 @@ function find() {
 function findById(id) {
     return db('photo')
         .where('id', id)
+        .first()
+}
+
+function findByUrl(url) {
+    return db('photo')
+        .where('img_url', url)
         .first()
 }
 
