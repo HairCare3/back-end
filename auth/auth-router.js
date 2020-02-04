@@ -2,7 +2,7 @@ const router = require('express').Router()
 const bc = require('bcryptjs')
 
 const generateToken = require('./generate-token.js')
-const validateUser = require('./validate-user.js')
+const validateUser = require('../users/validate-user.js')
 const validateCredentials = require('./validate-credentials.js')
 
 const Users = require('../data/helpers/user-model.js')

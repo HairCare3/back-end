@@ -18,7 +18,7 @@
     email: "email@email.com",
     location: "City, State",
     is_stylist: true, // optional, will default to false if not given
-    profile_url: "http://imgurl.com/img.jpg", // optional profile iamge
+    profile_url: "http://imgurl.com/img.jpg", // optional profile image
     profile_info: "I am the user's profile description. I am optional and have no character limit."
 }
 ```

@@ -4,6 +4,7 @@ const Photos = require('../data/helpers/photo-model.js')
 
 const verifyToken = require('../auth/verify-token.js')
 const validateId = require('../middleware/validate-id.js')
+const validatePhoto = require('./validate-photo.js')
 
 router.use(verifyToken)
 
@@ -31,7 +32,7 @@ router.get('/:id', validateId('photo'), (req, res) => {
         })
 })
 
-router.post('/', (req, res) => {
+router.post('/', validatePhoto, (req, res) => {
     const body = {
         ...req.body,
         user_id: req.user.id
@@ -47,7 +48,7 @@ router.post('/', (req, res) => {
         })
 })
 
-router.put('/:id', validateId('photo'), (req, res) => {
+router.put('/:id', validateId('photo'), validatePhoto, (req, res) => {
     const { id } = req.params
     const body = req.body
 
