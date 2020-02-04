@@ -4,12 +4,12 @@ const Reviews = require('../data/helpers/review-model.js')
 
 const verifyToken = require('../auth/verify-token.js')
 const validateId = require('../middleware/validate-id.js')
-const validateReview = require('./validate-review.js')
+const validateRating = require('./validate-rating.js')
 
 router.use(verifyToken)
 
 router.get('/', (req, res) => {
-    Review.find()
+    Reviews.find()
         .then(reviews => {
             res.status(200).json(reviews)
         })
@@ -19,11 +19,11 @@ router.get('/', (req, res) => {
         })
 })
 
-router.put('/:id', validateId('review'), validateReview, (req, res) => {
+router.put('/:id', validateId('review'), validateRating, (req, res) => {
     const { id } = req.params
     const body = req.body
 
-    Review.findById(id)
+    Reviews.findById(id)
         .then(review => {
             // check if the review belongs to the client
             if (review.customer_id === Number(req.user.id)) {
