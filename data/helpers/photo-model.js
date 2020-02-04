@@ -7,7 +7,8 @@ module.exports = {
     findByUrl,
     update,
     remove,
-    findByUser
+    findByUser,
+    findByStylist
 }
 
 function add(photoData) {
@@ -50,5 +51,13 @@ function findByUser(id) {
     return db('photo as p')
         .join('user as u', 'u.id', 'p.user_id')
         .where('p.user_id', id)
+        .select('p.id as photo_id', 'p.user_id', 'p.description', 'p.img_url')
+}
+
+function findByStylist(id) {
+    return db('photo as p')
+        .join('user as u', 'u.id', 'p.user_id')
+        .where('p.review_photo', false)
+        .andWhere('p.user_id', id)
         .select('p.id as photo_id', 'p.user_id', 'p.description', 'p.img_url')
 }
