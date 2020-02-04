@@ -48,7 +48,7 @@ router.post('/', validatePhoto, (req, res) => {
         })
 })
 
-router.put('/:id', validateId('photo'), validatePhoto, (req, res) => {
+router.put('/:id', validateId('photo'), (req, res) => {
     const { id } = req.params
     const body = req.body
 
