@@ -5,7 +5,6 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex('review').insert([
         {
-          id: 1,
           stylist_id: 1,
           customer_id: 2,
           photo_id: 3,

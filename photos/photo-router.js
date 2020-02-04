@@ -7,6 +7,30 @@ const validateId = require('../middleware/validate-id.js')
 
 router.use(verifyToken)
 
+router.get('/', (req, res) => {
+    Photos.find()
+        .then(photos => {
+            res.status(200).json(photos)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({ message: 'Error retrieving photos.' })
+        })
+})
+
+router.get('/:id', validateId('photo'), (req, res) => {
+    const { id } = req.params
+
+    Photos.find(id)
+        .then(photo => {
+            res.status(200).json(photo)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({ message: 'Error retrieving photo.' })
+        })
+})
+
 router.post('/', (req, res) => {
     const body = {
         ...req.body,

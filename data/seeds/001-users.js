@@ -8,7 +8,6 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex('user').insert([
         {
-          id: 1,
           username: 'bianca',
           password: hash,
           name: 'Bianca',
@@ -19,7 +18,6 @@ exports.seed = function(knex) {
           profile_info: 'Hi this is my profile!'
         },
         {
-          id: 2,
           username: 'isabela',
           password: hash,
           name: 'Isabela',
@@ -30,7 +28,6 @@ exports.seed = function(knex) {
           profile_info: 'I am a cat'
         },
         {
-          id: 3,
           username: 'best-stylist',
           password: hash,
           name: 'Best Stylist',
