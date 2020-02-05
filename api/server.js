@@ -9,4 +9,8 @@ configMiddleware(server)
 
 server.use('/api', apiRouter)
 
+server.get('/', (req, res) => {
+    res.status(200).json({ api_status: 'up' })
+})
+
 module.exports = server
