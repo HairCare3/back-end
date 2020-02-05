@@ -1,6 +1,8 @@
 const router = require('express').Router()
 
 const Reviews = require('../data/helpers/review-model.js')
+const Users = require('../data/helpers/user-model.js')
+const Photos = require('../data/helpers/photo-model.js')
 
 const verifyToken = require('../auth/verify-token.js')
 const validateId = require('../middleware/validate-id.js')
@@ -12,6 +14,53 @@ router.get('/', (req, res) => {
     Reviews.find()
         .then(reviews => {
             res.status(200).json(reviews)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({ message: 'Error retrieving reviews.' })
+        })
+})
+
+router.get('/:id', validateId('review'), (req, res) => {
+    const { id } = req.params
+
+    Reviews.findById(id)
+        .then(review => {
+            Users.findById(review.customer_id)
+                .then(customer => {
+                    Users.findById(review.stylist_id)
+                        .then(stylist => {
+                            if (review.photo_id) {
+                                Photos.findById(review.photo_id)
+                                    .then(photo => {
+                                        res.status(200).json({
+                                            ...review,
+                                            customer: customer,
+                                            stylist: stylist,
+                                            photo: photo
+                                        })
+                                    })
+                                    .catch(err => {
+                                        console.log(err)
+                                        res.status(500).json({ message: 'Error retrieving photo ID.' })
+                                    })
+                            } else {
+                                res.status(200).json({
+                                    ...review,
+                                    customer: customer,
+                                    stylist: stylist
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            res.status(500).json({ message: 'Error retrieving stylist ID.' })
+                        })
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.status(500).json({ message: 'Error retrieving user ID.' })
+                })
         })
         .catch(err => {
             console.log(err)

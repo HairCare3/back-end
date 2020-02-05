@@ -1,6 +1,7 @@
 const router = require('express').Router()
 
 const Photos = require('../data/helpers/photo-model.js')
+const Users = require('../data/helpers/user-model.js')
 
 const verifyToken = require('../auth/verify-token.js')
 const validateId = require('../middleware/validate-id.js')
@@ -22,9 +23,19 @@ router.get('/', (req, res) => {
 router.get('/:id', validateId('photo'), (req, res) => {
     const { id } = req.params
 
-    Photos.find(id)
+    Photos.findById(id)
         .then(photo => {
-            res.status(200).json(photo)
+            Users.findById(photo.user_id)
+                .then(user => {
+                    res.status(200).json({
+                        ...photo,
+                        user: user
+                    })
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.status(500).json({ message: 'Error retrieving user ID.' })
+                })        
         })
         .catch(err => {
             console.log(err)
