@@ -33,6 +33,17 @@
 }
 ```
 
+### Example login response:
+
+```
+{
+    "id": 1,
+    "username": "test",
+    "is_stylist": true,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0IiwiaXNfc3R5bGlzdCI6dHJ1ZSwiaWF0IjoxNTgwODYzMTE4LCJleHAiOjE1ODA5NDk1MTh9.xaNg6qmVn5ThxG83cn2vgN2bmhd68reLM8de1wka-8c"
+}
+```
+
 ### General Users
 | Request | URL | Description |
 |---------|-----|-------------|

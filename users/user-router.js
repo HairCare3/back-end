@@ -8,7 +8,7 @@ const validateId = require('../middleware/validate-id.js')
 router.use(verifyToken)
 
 router.get('/', (req, res) => {
-    Users.find()
+    Users.find(req.query)
         .then(users => {
             res.status(200).json(users)
         })
