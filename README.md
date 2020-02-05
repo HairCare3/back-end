@@ -56,7 +56,7 @@
 | Request | URL | Description |
 |---------|-----|-------------|
 | GET | /stylists | Returns an array of all stylists. |
-| GET | /stylists/:id | Returns a single stylist based on the given ID params. Will return an error if the ID doesn't exist, or if the ID belongs to a user with `is_stylist` set to `false`. |
+| GET | /stylists/:id | Returns a single stylist based on the given ID params. Will return an error if the ID doesn't exist, or if the ID belongs to a user with `is_stylist` set to `false`. Includes `photos` and `reviews` arrays. |
 | POST | /stylists/:id/reviews | Add a review for a stylist. See input requirements below. |
 
 #### Example review input:
@@ -75,7 +75,7 @@
 | Request | URL | Description |
 |---------|-----|-------------|
 | GET | /photos | Returns an array of all photos in the database. |
-| GET | /photos/:id | Returns a photo by ID params. Will return an error if the ID doesn't exist. |
+| GET | /photos/:id | Returns a photo by ID params. Will return an error if the ID doesn't exist. Includes `user` object. |
 | POST | /photos | Add photo to database. |
 | PUT | /photos/:id | Edit photo `img_url` and/or `description`. Cannot edit other users' photos. |
 | DELETE | /photos/:id | Delete photo. Cannot delete other users' photos. |
@@ -92,7 +92,7 @@
 | Request | URL | Description |
 |---------|-----|-------------|
 | GET | /reviews | Returns an array of all reviews in the database. |
-| GET | /reviews/:id | Returns a review by ID params. Will return an error if the ID doesn't exist. |
+| GET | /reviews/:id | Returns a review by ID params. Will return an error if the ID doesn't exist. Includes `customer` and `stylist` objects, and `photo` object if applicable. |
 | PUT | /reviews/:id | Edit a review's `title` and/or `description`. Cannot currently add a photo after the fact, and cannot edit other users' reviews. |
 | DELETE | /review/:id | Delete review. Cannot delete other users' reviews. |
 
@@ -160,10 +160,20 @@
 ```
 {
     id: 1, // automatically generated
-    user_id: 2, // generated based on id of logged in user
+    user_id: 1, // generated based on id of logged in user
     img_url: "https://picsum.photos/500",
     description: "This is a photo description.",
     review_photo: false // only set to true if uploaded as part of a review
+    user: {
+        id: 1,
+        username: "test",
+        name: "Test Stylist",
+        email: "test@gmail.com",
+        location: "New Haven, CT",
+        is_stylist: true,
+        profile_url: "https://avatars0.githubusercontent.com/u/10442143",
+        profile_info: "Hi this is my profile!"
+    }
 }
 ```
 
@@ -178,5 +188,32 @@
     text: "This is the body text of the review. I have no character limit.",
     stylist_rating: 4,
     haircut_rating: 5
+    customer: {
+        id: 2,
+        username: "isabela",
+        name: "Isabela",
+        email: "isabela@cat.com",
+        location: "New Haven, CT",
+        is_stylist: false,
+        profile_url: null,
+        profile_info: "I am a cat"
+    },
+    stylist: {
+        id: 1,
+        username: "test",
+        name: "Test Stylist",
+        email: "test@gmail.com",
+        location: "New Haven, CT",
+        is_stylist: true,
+        profile_url: "https://avatars0.githubusercontent.com/u/10442143",
+        profile_info: "Hi this is my profile!"
+    },
+    photo: { // review may not include photo
+        id: 3,
+        user_id: 2,
+        description: "This is a customer photo",
+        img_url: "https://picsum.photos/600",
+        review_photo: true
+    }
 }
 ```
