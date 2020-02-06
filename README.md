@@ -7,15 +7,15 @@
 ### Authorization
 | Request | URL | Description |
 |---------|-----|-------------|
-| POST | /auth/register |Add user to database. Requires at least `username`, `email`, `password`, `name`, and `location`. |
+| POST | /auth/register |Add user to database. Requires at least `username`, `email`, `password`, `name`, and `location`. Will return an error if `username` or `email` are already taken. |
 | POST | /auth/login | Login. Requires `username` and `password`. Returns a token to be stored on the client side `authorization` header - all requests below this require a token. |
 
 #### Example register input:
 ```
 {
-    username: "username",
+    username: "username", // unique
     password: "password",
-    email: "email@email.com",
+    email: "email@email.com", // unique
     name: "Full Name",
     location: "City, State",
     is_stylist: true, // optional, will default to false if not given
@@ -49,7 +49,7 @@
 |---------|-----|-------------|
 | GET | /users | Returns an array of all users. |
 | GET | /users/:id | Returns a single user based on the given ID params. Will return an error if the ID doesn't exist. |
-| PUT | /users/:id | Edit user. Returns the updated user object. Will return an error if user tries to edit another user. |
+| PUT | /users/:id | Edit user. Returns the updated user object. Will return an error if user tries to edit another user. Cannot edit `username` or `email`. |
 | DELETE | /users/:id | Delete user. Will return an error if the user tries to delete another user. |
 
 ### Stylists
