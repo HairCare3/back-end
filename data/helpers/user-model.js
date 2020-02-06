@@ -42,8 +42,6 @@ function update(id, data) {
     return db('user')
         .where('id', id)
         .update({
-            'username': data.username,
-            'email': data.email,
             'location': data.location,
             'name': data.name,
             'is_stylist': data.is_stylist,

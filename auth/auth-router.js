@@ -8,19 +8,44 @@ const validateCredentials = require('./validate-credentials.js')
 const Users = require('../data/helpers/user-model.js')
 
 router.post('/register', validateUser, (req, res) => {
+    const { username, email } = req.body
     const user = req.body
     const hash = bc.hashSync(req.body.password, 8)
     user.password = hash
 
-    Users.add(user)
-        .then(saved => {
-            console.log(saved)
-            res.status(201).json({ message: 'User successfully created.' })
-        })
+    Users.findBy({ username })
+        .first()
+        .then(username => {
+            if (username) {
+                res.status(400).json({ message: 'Username already taken.' })
+            } else {
+                Users.findBy({ email })
+                    .first()
+                    .then(email => {
+                        if (email) {
+                            res.status(400).json({ message: 'Email already taken.' })
+                        } else {
+                            Users.add(user)
+                                .then(saved => {
+                                    console.log(saved)
+                                    res.status(201).json({ message: 'User successfully created.' })
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                    res.status(500).json({ message: 'Error creating user.' })
+                                })
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        res.status(500).json({ message: 'Error creating user.' })
+                    })  
+            }
+        })  
         .catch(err => {
             console.log(err)
             res.status(500).json({ message: 'Error creating user.' })
-        })
+        })  
 })
 
 router.post('/login', validateCredentials, (req, res) => {
