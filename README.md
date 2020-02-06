@@ -7,7 +7,7 @@
 ### Authorization
 | Request | URL | Description |
 |---------|-----|-------------|
-| POST | /auth/register |Add user to database. Requires at least `username`, `email`, `password`, `location`. |
+| POST | /auth/register |Add user to database. Requires at least `username`, `email`, `password`, `name`, and `location`. |
 | POST | /auth/login | Login. Requires `username` and `password`. Returns a token to be stored on the client side `authorization` header - all requests below this require a token. |
 
 #### Example register input:
@@ -33,7 +33,7 @@
 }
 ```
 
-### Example login response:
+#### Example login response:
 
 ```
 {
@@ -183,7 +183,7 @@
     id: 1, // automatically generated
     stylist_id: 1, // generated based on id of stylist
     customer_id: 2, // generated based on id of logged in user
-    photo_id: 5, // generated based on id of photo given, will be null if no photo was uploaded
+    photo_id: 3, // generated based on id of photo given, will be null if no photo was uploaded
     title: "Review Title",
     text: "This is the body text of the review. I have no character limit.",
     stylist_rating: 4,
